@@ -30,8 +30,6 @@ Returns the value of the option key, so cannot be chained.
 ### `->add_html($html, $close_row=false)`
 Adds additional HTML within the form
 ### `->floating($additional_classes='')`
-### `->floating($additional_classes='')`
-### `->floating($additional_classes='')`
 To start a floating label block
 ### `->new_row($row_class='')`
 ### `->set_name($input_name_and_id_value='')`
