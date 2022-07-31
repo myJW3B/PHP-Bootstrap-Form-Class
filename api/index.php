@@ -1,6 +1,6 @@
 <?php
-require '/../classes/gui/form.php';
-require '/../classes/gui/html_builders.php';
+require 'classes/gui/form.php';
+require 'classes/gui/html_builders.php';
 
 echo 'Hello world';
 
