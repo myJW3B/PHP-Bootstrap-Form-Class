@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ *
  * --------------------------------------------------------------------------
  * PHP Bootstrap Form Class (v3.0.0-public-RC-1): html_builders.php
  * Licensed under MIT (https://github.com/Yohn/PHP-Bootstrap-Form-Class/blob/main/LICENSE)
@@ -29,7 +29,7 @@ class form {
 	public $opts;
 	public $ensure_row;
 	private $is_floating = false;
-	
+
 	public function __construct($opts=[]){ //id, $url='/ajax.php', $method='post', $attr=array('class' => 'form-horizontal jquery-form')){
 		$def_opts = [
 			'id' => '',
@@ -55,15 +55,15 @@ class form {
 		$this->html_builders = new html_builders;
 		$this->form_id = $this->opts['id'];
 		$this->ensure_row = $this->opts['ensure_row'];
-		
+
 		$add = $this->html_builders->sort_attr([
 			'method' => $this->opts['method']]
 			+['class' => $this->opts['form_classes']]
-			+$this->opts['form_attr'], 
+			+$this->opts['form_attr'],
 			['role', 'action', 'id']);
-		$this->form = 
-			$this->form_id != false ? 
-			'<form role="form" id="'.$this->form_id.'" action="'.$this->opts['url'].'"'.$add.'>'.PHP_EOL 
+		$this->form =
+			$this->form_id != false ?
+			'<form role="form" id="'.$this->form_id.'" action="'.$this->opts['url'].'"'.$add.'>'.PHP_EOL
 			: '';
 
 	}
@@ -76,7 +76,7 @@ class form {
 	public function get_opts($key){
 		return $this->opts[$key];
 	}
-	
+
 	public function add_html($html, $close_row=false){
 		if($close_row == true){
 			if($this->row_open == true){
@@ -87,7 +87,7 @@ class form {
 		$this->form .= '<!-- add_html -->'.$html;
 		return $this;
 	}
-	
+
 	public function new_row($row_class=''){
 		if($this->row_open == true){
 			$this->end_row();
@@ -98,7 +98,7 @@ class form {
 		$this->form .= '<div'.$class.'><!-- new_row -->'.PHP_EOL;
 		return $this;
 	}
-	
+
 	public function end_row(){
 		$this->form .= '</div><!-- end_row -->'.PHP_EOL;
 		$this->row_open = false;
@@ -121,22 +121,22 @@ class form {
 		}
 		return $this;
 	}
-	
+
 	public function label($txt, $class=''){
 		$find_class = $class == '' ? '' : $this->rollover_classes($class);
 		$this->form .= '<label for="'.$this->cur_id.'"'.$find_class.'>'.$txt.'</label>'.PHP_EOL;
 		return $this;
 	}
-	
+
 	public function floating($class=''){
 		$add = $class == '' ? '' : ' '.$class;
-		$add .= isset($this->opts['row_classes']) ? ' '.$this->opts['row_classes'] : ''; 
+		$add .= isset($this->opts['row_classes']) ? ' '.$this->opts['row_classes'] : '';
 		$this->form .= '<div class="floating-label'.$add.'">'.PHP_EOL;
 		$this->row_open = true;
 		$this->is_floating = true;
 		return $this;
 	}
-	
+
 	public function end_floating(){
 		$this->form .= '</div><!-- end_floating -->'.PHP_EOL;
 		$this->row_open = false;
@@ -158,15 +158,15 @@ class form {
 	}
 
 	/**
-	 *  @param (str) type = 'input', 'button', 'textarea', 'select', 'file', 'day', 'time':		
+	 *  @param (str) type = 'input', 'button', 'textarea', 'select', 'file', 'day', 'time':
 	 * 	@param (str) value of input
 	 *  @param (ary) attr for the input
 	 *  @param (ary) b4_element - input
 	 *  @param (ary) after_element - input
-	 * 
+	 *
 	 * return $this
 	 */
-	public function element($type, $value='', $attr=[], $b4_element='', $after_element=''){
+	public function element($type, $value='', array $attr=[], $b4_element='', $after_element=''){
 		if($this->ensure_row == true && $this->row_open == false) $this->new_row();
 //		$find_class = $this->rollover_classes($cols);
 //		if($cols > 0){
@@ -188,7 +188,7 @@ class form {
 		$this->form .= $after_element.'<!-- end_element -->'.PHP_EOL;
 		return $this;
 	}
-	
+
 	public function add_hidden($ary){
 		if($this->row_open == true) $this->end_row();
 		$this->form .= '<div class="clearfix">'.PHP_EOL;
@@ -198,7 +198,7 @@ class form {
 		$this->form .= '</div>'.PHP_EOL;
 		return $this;
 	}
-	
+
 	public function actions($btn_txt='Submit', $btn_class='btn btn-outline-primary', $b4_btn='', $after_btn='', $btn_id='', $results_id='', $dont_close=false){
 		if($this->ensure_row == true && $this->row_open == true) $this->end_row();
 		if($this->ensure_row == true && $this->is_floating == true) $this->end_floating();
@@ -219,14 +219,14 @@ class form {
 		<input type="hidden" name="token" value="'.$_SESSION['token'].'" id="'.$this->form_id.'-token">
 		<div class="'.$div_classes.'">
 			'.$b4_btn
-			.$this->html_builders->create_button('', $this->form_id.'-btn', 
-				$btn_txt, 
+			.$this->html_builders->create_button('', $this->form_id.'-btn',
+				$btn_txt,
 				['type' => 'submit', 'class' => $btn_class]
 			).$after_btn.'
 		</div>';
 		return $dont_close == false ? $this->close() : $this;
 	}
-	
+
 	public function close($close_form=true){
 		$completed = $this->form.'</form>'.PHP_EOL;
 
