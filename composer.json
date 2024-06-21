@@ -1,0 +1,22 @@
+{
+	"name": "myjw3b/php-bootstrap-form-class",
+	"type": "project",
+	"description": "Some form building helpers for bootstrap 4 & 5",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "John Brittain III",
+			"email": "Yohn@coming-soon.com",
+			"homepage": "https://github.com/Yohn",
+			"role": "Developer"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"JW3B\\gui\\": "api/classes/gui"
+		}
+	},
+	"require": {
+		"php": "^8.0"
+	}
+}

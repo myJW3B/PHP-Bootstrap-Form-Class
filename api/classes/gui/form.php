@@ -13,9 +13,9 @@
 			- need to add ability to add classes to select dropdowns
 */
 
-namespace jw3b\gui;
+namespace JW3B\gui;
 
-use jw3b\gui\html_builders;
+use JW3B\gui\html_builders;
 
 class form {
 
@@ -55,7 +55,6 @@ class form {
 		$this->html_builders = new html_builders;
 		$this->form_id = $this->opts['id'];
 		$this->ensure_row = $this->opts['ensure_row'];
-
 		$add = $this->html_builders->sort_attr([
 			'method' => $this->opts['method']]
 			+['class' => $this->opts['form_classes']]
@@ -65,7 +64,6 @@ class form {
 			$this->form_id != false ?
 			'<form role="form" id="'.$this->form_id.'" action="'.$this->opts['url'].'"'.$add.'>'.PHP_EOL
 			: '';
-
 	}
 
 	public function set_opts($key, $value){
@@ -158,20 +156,20 @@ class form {
 	}
 
 	/**
-	 *  @param (str) type = 'input', 'button', 'textarea', 'select', 'file', 'day', 'time':
-	 * 	@param (str) value of input
-	 *  @param (ary) attr for the input
-	 *  @param (ary) b4_element - input
-	 *  @param (ary) after_element - input
+	 *  @param (string) type = 'input', 'button', 'textarea', 'select', 'file', 'day', 'time':
+	 * 	@param (string) value of input
+	 *  @param (array) attr for the input
+	 *  @param (array) b4_element - input
+	 *  @param (array) after_element - input
 	 *
 	 * return $this
 	 */
-	public function element($type, $value='', array $attr=[], $b4_element='', $after_element=''){
+	public function element($type, $value='', $attr=[], $b4_element='', $after_element=''){
 		if($this->ensure_row == true && $this->row_open == false) $this->new_row();
-//		$find_class = $this->rollover_classes($cols);
-//		if($cols > 0){
-//			$this->form .= '<div class="col-sm-'.$cols.'"><!-- element -->'.$b4_element.PHP_EOL;
-//		}
+		//$find_class = $this->rollover_classes($cols);
+		//if($cols > 0){
+		//	$this->form .= '<div class="col-sm-'.$cols.'"><!-- element -->'.$b4_element.PHP_EOL;
+		//}
 		$this->form .= '<!-- element -->'.$b4_element.PHP_EOL;
 		switch($type){
 			case 'input':		$this->form .= $this->html_builders->create_input($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
@@ -229,7 +227,6 @@ class form {
 
 	public function close($close_form=true){
 		$completed = $this->form.'</form>'.PHP_EOL;
-
 		return $close_form == true ? $this->form.'</form>'.PHP_EOL : $this->form;
 	}
 
@@ -245,6 +242,3 @@ class form {
 		}
 	}
 }
-
-
-?>

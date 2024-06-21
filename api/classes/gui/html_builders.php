@@ -1,16 +1,16 @@
 <?php
 /**
- * 
+ *
  * --------------------------------------------------------------------------
  * PHP Bootstrap Form Class (v3.0.0-public-RC-1): html_builders.php
  * Licensed under MIT (https://github.com/Yohn/PHP-Bootstrap-Form-Class/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
-namespace jw3b\gui;
+namespace JW3B\gui;
 
 class html_builders {
-	public function sort_attr($ary_attr, $not_allows_attr=array()){
-		$str = ''; $found = array();
+	public function sort_attr($ary_attr, $not_allows_attr=[]){
+		$str = ''; $found = [];
 		if(is_array($ary_attr)){
 			foreach($ary_attr as $k => $v){
 				if($k != '' && !in_array($k, $not_allows_attr) && !in_array($k, $found)){
@@ -20,35 +20,35 @@ class html_builders {
 		}
 		return $str;
 	}
-	
+
 	public function set_class($classes, $cur_ary){
 		if(isset($cur_ary['class'])){
 			$current = explode(' ', $cur_ary['class']);
 			$new = explode(' ', $classes);
 			$merged = array_merge($current, $new);
-			$found = array();
+			$found = [];
 			foreach($merged as $cls){
 				if(!in_array($cls, $found)){
 					$found[] = $cls;
 				}
 			}
 			unset($cur_ary['class']);
-			return array('class' => implode(' ', $found))+$cur_ary;
+			return ['class' => implode(' ', $found)]+$cur_ary;
 		} else if($classes == ''){
 			return $cur_ary;
 		} else {
-			return array('class' => $classes)+$cur_ary;
+			return ['class' => $classes]+$cur_ary;
 		}
 	}
-	
+
 	public function create_select($name, $id, $value, $attr){
 		$ret = '<select name="'.$name.'" id="'.$id.'" class="form-control">';
 		if(isset($attr['do'])){
 			if($attr['do'] == 'timezone'){
-				$attr['options'] = array('' => '<!-- Select -->', 'America/New_York' => 'America/New_York', 'America/Chicago' => 'America/Chicago', 'America/Denver' => 'America/Denver', 'America/Phoenix' => 'America/Phoenix', 'America/Los_Angeles' => 'America/Los_Angeles');
+				$attr['options'] = ['' => '<!-- Select -->', 'America/New_York' => 'America/New_York', 'America/Chicago' => 'America/Chicago', 'America/Denver' => 'America/Denver', 'America/Phoenix' => 'America/Phoenix', 'America/Los_Angeles' => 'America/Los_Angeles'];
 			} else if($attr['do'] == 'states'){
 				// put states array here..
-				$attr['options'] = array('AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas', 'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware', 'DC' => 'District Of Columbia', 'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho', 'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas', 'KY' => 'Kentucky', 'LA" selected="selected' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland', 'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi', 'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada', 'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York', 'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma', 'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina', 'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming');
+				$attr['options'] = ['AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas', 'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware', 'DC' => 'District Of Columbia', 'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho', 'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas', 'KY' => 'Kentucky', 'LA" selected="selected' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland', 'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi', 'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada', 'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York', 'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma', 'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina', 'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming'];
 			}
 		}
 		foreach($attr['options'] as $v => $txt){
@@ -57,7 +57,7 @@ class html_builders {
 		}
 		return $ret.'</select>';
 	}
-	
+
 	public function create_input($name, $id, $value, $attr){
 		if(!isset($attr['type'])) $attr['type'] = 'text';
 		if(!in_array($attr['type'], ['checkbox', 'radio'])){
@@ -69,11 +69,11 @@ class html_builders {
 
 		return '<input'.$add.'>';
 	}
-	
+
 	public function create_button($name, $id, $value, $attr){
 		if(!isset($attr['type'])) $attr['type'] = 'button';
 		$organize_class = $this->set_class('btn', $attr);
-		$ary = array();
+		$ary = [];
 		if($id != '') $ary['id'] = $id;
 		if($name != '') $ary['name'] = $name;
 		$add = $this->sort_attr($ary+$organize_class+$attr);
@@ -82,10 +82,10 @@ class html_builders {
 
 	public function create_textarea($name, $id, $value, $attr){
 		$organize_class = $this->set_class('form-control', $attr);
-		$add = $this->sort_attr(array('id' => $id, 'name' => $name)+$organize_class);
+		$add = $this->sort_attr(['id' => $id, 'name' => $name]+$organize_class);
 		return '<textarea'.$add.'>'.$value.'</textarea>';
 	}
-	
+
 	public function create_upload($name, $id, $value, $attr){
 		$class = $value == '' ? 'new' : 'exists';
 		$img = $value == '' ? '' : '<img src="'.$value.'" alt="Preview" class="img-responsive">';
@@ -122,7 +122,7 @@ class html_builders {
 			</div>';
 		}
 	}
-	
+
 	//https://codepen.io/steelwater/pen/BjeZQx
 	public function create_day_picker($name, $id, $checks, $attr){
 		// need to run checks to see if they need a checkbox checked or not.
@@ -144,13 +144,10 @@ class html_builders {
 				<label for="'.$id.'-sat">Sat<br><big class="glyphicon glyphicon-ok"></big><big class="glyphicon glyphicon-remove"></big></label>
 		</div>';
 	}
-	
+
 	public function create_time_picker($name, $id, $checks, $attr){
 		// find the one i had before
-		
+
 		return 'Start and End for all days..?? Maybe assign days for it..';
 	}
 }
-
-
-?>
