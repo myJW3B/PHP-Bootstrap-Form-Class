@@ -123,31 +123,30 @@ class html_builders {
 		}
 	}
 
-	//https://codepen.io/steelwater/pen/BjeZQx
+	//https://codepen.io/yusufdogandev/pen/OJBNmPP
+	// https://github.com/mymth/vanillajs-datepicker
 	public function create_day_picker($name, $id, $checks, $attr){
 		// need to run checks to see if they need a checkbox checked or not.
 		// glyphicon glyphicon-remove-circle
-		return '<div class="weekDays-selector">
-			<input class="weekday" type="checkbox" id="'.$id.'-sun" name="'.$id.'-sun" value="1" checked="checked" />
-				<label for="'.$id.'-sun">Sun<br><big class="glyphicon glyphicon-ok"></big><big class="glyphicon glyphicon-remove"></big></label>
-			<input class="weekday" type="checkbox" id="'.$id.'-mon" name="'.$id.'-mon" value="1" checked="checked" />
-				<label for="'.$id.'-mon">Mon<br><big class="glyphicon glyphicon-ok"></big><big class="glyphicon glyphicon-remove"></big></label>
-			<input class="weekday" type="checkbox" id="'.$id.'-tue" name="'.$id.'-tue" value="1" checked="checked" />
-				<label for="'.$id.'-tue">Tues<br><big class="glyphicon glyphicon-ok"></big><big class="glyphicon glyphicon-remove"></big></label>
-			<input class="weekday" type="checkbox" id="'.$id.'-wed" name="'.$id.'-wed" value="1" checked="checked" />
-				<label for="'.$id.'-wed">Wed<br><big class="glyphicon glyphicon-ok"></big><big class="glyphicon glyphicon-remove"></big></label>
-			<input class="weekday" type="checkbox" id="'.$id.'-thu" name="'.$id.'-thu" value="1" checked="checked" />
-				<label for="'.$id.'-thu">Thurs<br><big class="glyphicon glyphicon-ok"></big><big class="glyphicon glyphicon-remove"></big></label>
-			<input class="weekday" type="checkbox" id="'.$id.'-fri" name="'.$id.'-fri" value="1" checked="checked" />
-				<label for="'.$id.'-fri">Fri<br><big class="glyphicon glyphicon-ok"></big><big class="glyphicon glyphicon-remove"></big></label>
-			<input class="weekday" type="checkbox" id="'.$id.'-sat" name="'.$id.'-sat" value="1" checked="checked" />
-				<label for="'.$id.'-sat">Sat<br><big class="glyphicon glyphicon-ok"></big><big class="glyphicon glyphicon-remove"></big></label>
+		return '<div class="input-group date" id="datepicker">
+			<input type="text" class="form-control" id="date" placeholder="Date Of Birth" />
+			<span class="input-group-append">
+				<span class="input-group-text bg-light d-block">
+					<i class="fa fa-calendar"></i>
+				</span>
+			</span>
 		</div>';
 	}
 
+	// https://codepen.io/yusufdogandev/pen/OJBNmPP
+	//	https://github.com/ovelilla/timepicker-responsive-vanillajs
 	public function create_time_picker($name, $id, $checks, $attr){
 		// find the one i had before
-
-		return 'Start and End for all days..?? Maybe assign days for it..';
+		return '<div class="input-group clockpicker" data-placement="bottom" data-align="bottom" data-autoclose="true">
+			<input type="text" class="form-control" placeholder="Time Of Birth" />
+			<span class="input-group-addon">
+				<i class="bi bi-clock"></i>
+			</span>
+		</div>';
 	}
 }
