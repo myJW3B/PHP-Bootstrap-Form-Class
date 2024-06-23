@@ -209,8 +209,20 @@ class Form {
 			$div_classes = 'text-center clearfix';
 		}
 		// form submissions
-		if(empty($_SESSION['token'])){
-			$_SESSION['token'] = bin2hex(random_bytes(32));
+		if(!isset($_SESSION['token']) || empty($_SESSION['token'])
+			|| empty($_SESSION['token'][$this->form_id]) || !is_array($_SESSION['token'][$this->form_id])
+			|| !isset($_SESSION['token'][$this->form_id]['token2'])){
+			if(isset($_SESSION['token'])
+				&& (!is_array($_SESSION['token'])
+				|| (isset($_SESSION['token'][$this->form_id])
+					&& !is_array($_SESSION['token'][$this->form_id])
+					)
+				)
+			) unset($_SESSION['token']);
+			$_SESSION['token'][$this->form_id] = [
+				'token2' => bin2hex(random_bytes(32)),
+				'time' => time()
+			];
 		}
 		$this->form .= '<div id="'.$results_id.'"></div>
 		<input type="hidden" name="form_id" value="'.$this->form_id.'" id="form-id-'.$this->form_id.'">
@@ -223,6 +235,29 @@ class Form {
 			).$after_btn.'
 		</div>';
 		return $dont_close == false ? $this->close() : $this;
+	}
+
+
+	/** Checked the token of submitted form..
+	 * @param string $form_id = the id of the form you're checking
+	 * @param string $post_token = the $_POST['token'] value
+	 *
+	 * @return boolean
+	 */
+	static function check_token($form_id='', $post_token='') : bool {
+		$form_id = $form_id == '' ? $_POST['form_id'] : $form_id;
+		$post_token = $post_token == '' ? $_POST['token'] : $post_token;
+		if(isset($_SESSION['token'])
+			&& isset($_SESSION['token'][$form_id])
+			&& isset($_SESSION['token'][$form_id]['token2'])){
+			if($_SESSION['token'][$form_id]['token2'] == $post_token){
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	public function close($close_form=true){
