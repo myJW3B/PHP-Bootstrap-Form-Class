@@ -226,7 +226,7 @@ class Form {
 		}
 		$this->form .= '<div id="'.$results_id.'"></div>
 		<input type="hidden" name="form_id" value="'.$this->form_id.'" id="form-id-'.$this->form_id.'">
-		<input type="hidden" name="token" value="'.$_SESSION['token'][$this->form_id].'" id="'.$this->form_id.'-token">
+		<input type="hidden" name="token" value="'.$_SESSION['token'][$this->form_id]['token2'].'" id="'.$this->form_id.'-token">
 		<div class="'.$div_classes.'">
 			'.$b4_btn
 			.$this->html_builders->create_button('', $this->form_id.'-btn',
