@@ -8,7 +8,7 @@
  */
 namespace JW3B\gui;
 
-class html_builders {
+class HTML_Builders {
 	public function sort_attr($ary_attr, $not_allows_attr=[]){
 		$str = ''; $found = [];
 		if(is_array($ary_attr)){

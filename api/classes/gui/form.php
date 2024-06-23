@@ -15,9 +15,9 @@
 
 namespace JW3B\gui;
 
-use JW3B\gui\html_builders;
+use JW3B\gui\HTML_Builders;
 
-class form {
+class Form {
 
 	public $form = '';
 	public $form_id = '';
@@ -52,7 +52,7 @@ class form {
 			'form_attr' => [],
 			'ensure_row' => isset($opts['ensure_row']) ? $opts['ensure_row'] : $def_opts['ensure_row']
 		];
-		$this->html_builders = new html_builders;
+		$this->html_builders = new HTML_Builders;
 		$this->form_id = $this->opts['id'];
 		$this->ensure_row = $this->opts['ensure_row'];
 		$add = $this->html_builders->sort_attr([
@@ -159,8 +159,8 @@ class form {
 	 *  @param (string) type = 'input', 'button', 'textarea', 'select', 'file', 'day', 'time':
 	 * 	@param (string) value of input
 	 *  @param (array) attr for the input
-	 *  @param (array) b4_element - input
-	 *  @param (array) after_element - input
+	 *  @param (string) b4_element - input
+	 *  @param (string) after_element - input
 	 *
 	 * return $this
 	 */
