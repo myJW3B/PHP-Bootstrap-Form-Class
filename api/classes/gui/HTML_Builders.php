@@ -86,6 +86,16 @@ class HTML_Builders {
 		return '<textarea'.$add.'>'.$value.'</textarea>';
 	}
 
+	/**
+	 * create_upload function
+	 * same as the date picker, use elements already provided.
+	 * Below worked for booystrap 3
+	 * @param [type] $name
+	 * @param [type] $id
+	 * @param [type] $value
+	 * @param [type] $attr
+	 * @return string
+	 */
 	public function create_upload($name, $id, $value, $attr){
 		$class = $value == '' ? 'new' : 'exists';
 		$img = $value == '' ? '' : '<img src="'.$value.'" alt="Preview" class="img-responsive">';
@@ -123,12 +133,54 @@ class HTML_Builders {
 		}
 	}
 
+	public function create_tags($name, $id, $checks, $attr){
+
+	}
+
 	//https://codepen.io/yusufdogandev/pen/OJBNmPP
 	// https://github.com/mymth/vanillajs-datepicker
+	/**
+	 * create_day_picker function
+	 * dont use this, use the functions already available to make it work
+	 * 		->input_group()
+	 *		->input_group_text($icons->icon('people-circle'))
+	 *		->floating()->set_name('mf-rname')
+	 *			->element('input', '',  [
+	 *				'required' => 'required',
+	 *				'placeholder' => 'Display Name',
+	 *				'class' => 'mf-valid',
+	 *				'minlength' => '3',
+	 *				'maxlength' => '30',
+	 *				'data-error-msg' => 'Display name has to be at between 3-30 characters long'
+	 *			])->end_floating()
+	 *	->end_group()
+	 * @param string $name
+	 * @param string $id
+	 * @param string $checks
+	 * @param array $attr
+	 * @return string
+	 */
 	public function create_day_picker($name, $id, $checks, $attr){
 		// need to run checks to see if they need a checkbox checked or not.
 		// glyphicon glyphicon-remove-circle
+		/*
+		->input_group()
+				->input_group_text($icons->icon('people-circle'))
+				->floating()->set_name('mf-rname')
+					->element('input', '',  [
+						'required' => 'required',
+						'placeholder' => 'Display Name',
+						'class' => 'mf-valid',
+						'minlength' => '3',
+						'maxlength' => '30',
+						'data-error-msg' => 'Display name has to be at between 3-30 characters long'
+					])->end_floating()
+			->end_group()
+		*/
 		return '<div class="input-group date" id="datepicker">
+			<span class="input-group-text">
+
+			</span>
 			<input type="text" class="form-control" id="date" placeholder="Date Of Birth" />
 			<span class="input-group-append">
 				<span class="input-group-text bg-light d-block">

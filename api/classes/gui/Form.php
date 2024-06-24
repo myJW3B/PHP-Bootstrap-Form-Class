@@ -33,11 +33,11 @@ class Form {
 	public function __construct($opts=[]){ //id, $url='/ajax.php', $method='post', $attr=array('class' => 'form-horizontal jquery-form')){
 		$def_opts = [
 			'id' => '',
-			'url' => '/ajax.php',
+			'url' => '/index.php',
 			'method' => 'post',
 			'form_classes' => 'mf-forms',
 			'input_classes' => 'form-control',
-			'row_classes' => 'mb-3',
+			'row_classes' => '',
 			'form_attr' => [],
 			'ensure_row' => true
 		];
@@ -179,6 +179,7 @@ class Form {
 			case 'file':		$this->form .= $this->html_builders->create_upload($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
 			case 'day':			$this->form .= $this->html_builders->create_day_picker($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
 			case 'time':		$this->form .= $this->html_builders->create_time_picker($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
+			case 'tags':		$this->form .= $this->html_builders->create_tags($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
 		}
 		if(isset($attr['placeholder']) && $attr['placeholder'] != '' && $this->is_floating == true){
 			$this->label($attr['placeholder']);
