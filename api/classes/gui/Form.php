@@ -173,12 +173,12 @@ class Form {
 		$this->form .= '<!-- element -->'.$b4_element.PHP_EOL;
 		switch($type){
 			case 'input':		$this->form .= $this->html_builders->create_input($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
-			case 'button': 		$this->form .= $this->html_builders->create_button($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
-			case 'textarea': 	$this->form .= $this->html_builders->create_textarea($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
-			case 'select': 		$this->form .= $this->html_builders->create_select($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
-			case 'file':			$this->form .= $this->html_builders->create_upload($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
-			case 'day':				$this->form .= $this->html_builders->create_day_picker($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
-			case 'time':			$this->form .= $this->html_builders->create_time_picker($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
+			case 'button': 	$this->form .= $this->html_builders->create_button($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
+			case 'textarea':$this->form .= $this->html_builders->create_textarea($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
+			case 'select': 	$this->form .= $this->html_builders->create_select($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
+			case 'file':		$this->form .= $this->html_builders->create_upload($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
+			case 'day':			$this->form .= $this->html_builders->create_day_picker($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
+			case 'time':		$this->form .= $this->html_builders->create_time_picker($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
 		}
 		if(isset($attr['placeholder']) && $attr['placeholder'] != '' && $this->is_floating == true){
 			$this->label($attr['placeholder']);
@@ -209,24 +209,10 @@ class Form {
 			$div_classes = 'text-center clearfix';
 		}
 		// form submissions
-		if(!isset($_SESSION['token']) || empty($_SESSION['token'])
-			|| empty($_SESSION['token'][$this->form_id]) || !is_array($_SESSION['token'][$this->form_id])
-			|| !isset($_SESSION['token'][$this->form_id]['token2'])){
-			if(isset($_SESSION['token'])
-				&& (!is_array($_SESSION['token'])
-				|| (isset($_SESSION['token'][$this->form_id])
-					&& !is_array($_SESSION['token'][$this->form_id])
-					)
-				)
-			) unset($_SESSION['token']);
-			$_SESSION['token'][$this->form_id] = [
-				'token2' => bin2hex(random_bytes(32)),
-				'time' => time()
-			];
-		}
+		$token = self::generate_token($this->form_id);
 		$this->form .= '<div id="'.$results_id.'"></div>
 		<input type="hidden" name="form_id" value="'.$this->form_id.'" id="form-id-'.$this->form_id.'">
-		<input type="hidden" name="token" value="'.$_SESSION['token'][$this->form_id]['token2'].'" id="'.$this->form_id.'-token">
+		<input type="hidden" name="token" value="'.$token.'" id="'.$this->form_id.'-token">
 		<div class="'.$div_classes.'">
 			'.$b4_btn
 			.$this->html_builders->create_button('', $this->form_id.'-btn',
@@ -237,6 +223,33 @@ class Form {
 		return $dont_close == false ? $this->close() : $this;
 	}
 
+	public static function generate_token($form_id){
+		if(!isset($_SESSION['token']) || empty($_SESSION['token'])
+			|| empty($_SESSION['token'][$form_id])
+			|| !is_array($_SESSION['token'][$form_id])
+			|| !isset($_SESSION['token'][$form_id]['token2'])){
+			if(isset($_SESSION['token'])
+				&& (!is_array($_SESSION['token'])
+				|| (isset($_SESSION['token'][$form_id])
+					&& !is_array($_SESSION['token'][$form_id])
+					)
+				)
+			) unset($_SESSION['token']);
+			$token = bin2hex(random_bytes(32));
+			$_SESSION['token'][$form_id] = [
+				'token2' => $token,
+				'time' => time()
+			];
+		}
+		if(!isset($token)){
+			$token = bin2hex(random_bytes(32));
+			$_SESSION['token'][$form_id] = [
+				'token2' => $token,
+				'time' => time()
+			];
+		}
+		return $token;
+	}
 
 	/** Checked the token of submitted form..
 	 * @param string $form_id = the id of the form you're checking
@@ -244,7 +257,7 @@ class Form {
 	 *
 	 * @return boolean
 	 */
-	static function check_token($form_id='', $post_token='') : bool {
+	public static function check_token($form_id='', $post_token='') : bool {
 		$form_id = $form_id == '' ? $_POST['form_id'] : $form_id;
 		$post_token = $post_token == '' ? $_POST['token'] : $post_token;
 		if(isset($_SESSION['token'])
