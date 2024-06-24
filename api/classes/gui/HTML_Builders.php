@@ -133,8 +133,17 @@ class HTML_Builders {
 		}
 	}
 
+	/**
+	 * create_tags function
+	 *
+	 * @param string $name
+	 * @param string $id
+	 * @param string $checks
+	 * @param array $attr
+	 * @return string
+	 */
 	public function create_tags($name, $id, $checks, $attr){
-
+		return '';
 	}
 
 	//https://codepen.io/yusufdogandev/pen/OJBNmPP
