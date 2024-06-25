@@ -200,7 +200,7 @@ class HTML_Builders {
 	}
 
 	/* lets try to use whats already available */
-	// will it work?
+	// will it work? ok..
 	// https://codepen.io/yusufdogandev/pen/OJBNmPP
 	//	https://github.com/ovelilla/timepicker-responsive-vanillajs
 	public function create_time_picker($name, $id, $checks, $attr){
