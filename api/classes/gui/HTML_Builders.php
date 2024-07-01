@@ -42,7 +42,7 @@ class HTML_Builders {
 	}
 
 	public function create_select($name, $id, $value, $attr){
-		$ret = '<select name="'.$name.'" id="'.$id.'" class="form-control">';
+		$ret = '<select name="'.$name.'" id="'.$id.'" class="form-select">';
 		if(isset($attr['do'])){
 			if($attr['do'] == 'timezone'){
 				$attr['options'] = ['' => '<!-- Select -->', 'America/New_York' => 'America/New_York', 'America/Chicago' => 'America/Chicago', 'America/Denver' => 'America/Denver', 'America/Phoenix' => 'America/Phoenix', 'America/Los_Angeles' => 'America/Los_Angeles'];
