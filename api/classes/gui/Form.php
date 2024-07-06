@@ -52,6 +52,9 @@ class Form {
 			'form_attr' => [],
 			'ensure_row' => isset($opts['ensure_row']) ? $opts['ensure_row'] : $def_opts['ensure_row']
 		];
+		if(isset($opts['files']) || isset($opts['file']) || isset($opts['upload'])){
+			$this->opts['form_attr']['enctype'] = 'multipart/form-data';
+		}
 		$this->html_builders = new HTML_Builders;
 		$this->form_id = $this->opts['id'];
 		$this->ensure_row = $this->opts['ensure_row'];
@@ -59,7 +62,8 @@ class Form {
 			'method' => $this->opts['method']]
 			+['class' => $this->opts['form_classes']]
 			+$this->opts['form_attr'],
-			['role', 'action', 'id']);
+			['role', 'action', 'id']
+		);
 		$this->form =
 			$this->form_id != false ?
 			'<form role="form" id="'.$this->form_id.'" action="'.$this->opts['url'].'"'.$add.'>'.PHP_EOL
@@ -73,6 +77,10 @@ class Form {
 
 	public function get_opts($key){
 		return $this->opts[$key];
+	}
+
+	public function html($html, $close=false){
+		return $this->add_html($html, $close);
 	}
 
 	public function add_html($html, $close_row=false){
@@ -91,21 +99,10 @@ class Form {
 			$this->end_row();
 		}
 		$add_class = $row_class != '' ? ' '.$row_class : '';
-		$this->row_open = true;
+		$add_class .= isset($this->opts['row_classes']) ? ' '.$this->opts['row_classes'] : '';
 		$class = $add_class == '' ? '' : ' class="'.$add_class.'"';
 		$this->form .= '<div'.$class.'><!-- new_row -->'.PHP_EOL;
-		return $this;
-	}
-
-	public function end_row(){
-		$this->form .= '</div><!-- end_row -->'.PHP_EOL;
-		$this->row_open = false;
-		return $this;
-	}
-
-	public function end_group(){
-		$this->form .= '</div><!-- end_group -->'.PHP_EOL;
-		$this->row_open = false;
+		$this->row_open = true;
 		return $this;
 	}
 
@@ -136,9 +133,17 @@ class Form {
 	}
 
 	public function end_floating(){
-		$this->form .= '</div><!-- end_floating -->'.PHP_EOL;
-		$this->row_open = false;
 		$this->is_floating = false;
+		return $this->end_group('floating');
+	}
+
+	public function end_row(){
+		return $this->end_group('row');
+	}
+
+	public function end_group($end='group'){
+		$this->form .= '</div><!-- end_'.$end.' -->'.PHP_EOL;
+		$this->row_open = false;
 		return $this;
 	}
 
@@ -176,7 +181,8 @@ class Form {
 			case 'button': 	$this->form .= $this->html_builders->create_button($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
 			case 'textarea':$this->form .= $this->html_builders->create_textarea($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
 			case 'select': 	$this->form .= $this->html_builders->create_select($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
-			case 'file':		$this->form .= $this->html_builders->create_upload($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
+			//case 'file':		$this->form .= $this->html_builders->create_upload($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
+			case 'file':		$this->form .= $this->html_builders->create_input($this->cur_name, $this->cur_id, $value, $attr+['type' => 'file']).PHP_EOL; break;
 			case 'day':			$this->form .= $this->html_builders->create_day_picker($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
 			case 'time':		$this->form .= $this->html_builders->create_time_picker($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
 			case 'tags':		$this->form .= $this->html_builders->create_tags($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
