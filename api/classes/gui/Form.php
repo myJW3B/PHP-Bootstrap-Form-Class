@@ -49,7 +49,7 @@ class Form {
 			'form_classes' => isset($opts['form_classes']) ? $opts['form_classes'] : $def_opts['form_classes'],
 			'input_classes' => isset($opts['input_classes']) ? $opts['input_classes'] : $def_opts['input_classes'],
 			'row_classes' => isset($opts['row_classes']) ? $opts['row_classes'] : $def_opts['row_classes'],
-			'form_attr' => [],
+			'form_attr' => isset($opts['form_attr']) ? $opts['form_attr'] : $def_opts['form_attr'],
 			'ensure_row' => isset($opts['ensure_row']) ? $opts['ensure_row'] : $def_opts['ensure_row']
 		];
 		if(isset($opts['files']) || isset($opts['file']) || isset($opts['upload'])){
