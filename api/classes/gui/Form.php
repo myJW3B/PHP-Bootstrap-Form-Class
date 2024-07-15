@@ -16,6 +16,7 @@
 namespace JW3B\gui;
 
 use JW3B\gui\HTML_Builders;
+use Yohns\Security\FindingNemo\Hash;
 
 class Form {
 
@@ -236,10 +237,14 @@ class Form {
 			$div_classes = 'text-center clearfix';
 		}
 		// form submissions
-		$token = self::generate_token($this->form_id);
+		// I changed this to its own hash class now..
+		//$token = self::generate_token($this->form_id);
+		//<input type="hidden" name="token" value="' . $token . '" id="' . $this->form_id . '-token">
+		$Hash = new Hash();
+		$nemo = $Hash->form($this->form_id);
 		$this->form .= '<div id="' . $results_id . '"></div>
 		<input type="hidden" name="form_id" value="' . $this->form_id . '" id="form-id-' . $this->form_id . '">
-		<input type="hidden" name="token" value="' . $token . '" id="' . $this->form_id . '-token">
+		<input type="hidden" name="nemo" value="' . $nemo . '" id="nemo-form-' . $this->form_id . '">
 		<div class="' . $div_classes . '">
 			' . $b4_btn
 			. $this->html_builders->create_button('', $this->form_id . '-btn',
