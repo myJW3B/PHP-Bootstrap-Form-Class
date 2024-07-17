@@ -67,7 +67,7 @@ class Form {
 		);
 		$this->form =
 			$this->form_id != false ?
-			'<form role="form" id="' . $this->form_id . '" action="' . $this->opts['url'] . '"' . $add . '>' . PHP_EOL
+			'<form role="form" id="' . $this->form_id . '" action="' . $this->opts['url'] . '"' . $add . '>'
 			: '';
 	}
 
@@ -91,7 +91,7 @@ class Form {
 			}
 			$this->row_open = true;
 		}
-		$this->form .= '<!-- add_html -->' . $html;
+		$this->form .= $html;
 		return $this;
 	}
 
@@ -102,7 +102,7 @@ class Form {
 		$add_class = $row_class != '' ? ' ' . $row_class : '';
 		$add_class .= isset($this->opts['row_classes']) ? ' ' . $this->opts['row_classes'] : '';
 		$class = $add_class == '' ? '' : ' class="' . $add_class . '"';
-		$this->form .= '<div' . $class . '><!-- new_row -->' . PHP_EOL;
+		$this->form .= '<div' . $class . '>';
 		$this->row_open = true;
 		return $this;
 	}
@@ -120,14 +120,14 @@ class Form {
 
 	public function label($txt, $class = '') {
 		$find_class = $class == '' ? '' : $this->rollover_classes($class);
-		$this->form .= '<label for="' . $this->cur_id . '"' . $find_class . '>' . $txt . '</label>' . PHP_EOL;
+		$this->form .= '<label for="' . $this->cur_id . '"' . $find_class . '>' . $txt . '</label>';
 		return $this;
 	}
 
 	public function floating($class = '') {
 		$add = $class == '' ? '' : ' ' . $class;
 		$add .= isset($this->opts['row_classes']) ? ' ' . $this->opts['row_classes'] : '';
-		$this->form .= '<div class="floating-label' . $add . '">' . PHP_EOL;
+		$this->form .= '<div class="floating-label' . $add . '">';
 		$this->row_open = true;
 		$this->is_floating = true;
 		return $this;
@@ -143,21 +143,21 @@ class Form {
 	}
 
 	public function end_group($end = 'group') {
-		$this->form .= '</div><!-- end_' . $end . ' -->' . PHP_EOL;
+		$this->form .= '</div>';
 		$this->row_open = false;
 		return $this;
 	}
 
 	public function input_group($class = '') {
 		$add = $class == '' ? '' : ' ' . $class;
-		$this->form .= '<div class="input-group' . $add . '">' . PHP_EOL;
+		$this->form .= '<div class="input-group' . $add . '">';
 		$this->row_open = true;
 		return $this;
 	}
 
 	public function input_group_text($txt, $class = '') {
 		$add = $class == '' ? '' : ' ' . $class;
-		$this->form .= '<span class="input-group-text' . $add . '">' . $txt . '</span>' . PHP_EOL;
+		$this->form .= '<span class="input-group-text' . $add . '">' . $txt . '</span>';
 		return $this;
 	}
 
@@ -177,49 +177,49 @@ class Form {
 		//if($cols > 0){
 		//	$this->form .= '<div class="col-sm-'.$cols.'"><!-- element -->'.$b4_element.PHP_EOL;
 		//}
-		$this->form .= '<!-- element -->' . $b4_element . PHP_EOL;
+		$this->form .= $b4_element;
 		switch ($type) {
 			case 'input':
-				$this->form .= $this->html_builders->create_input($this->cur_name, $this->cur_id, $value, $attr) . PHP_EOL;
+				$this->form .= $this->html_builders->create_input($this->cur_name, $this->cur_id, $value, $attr);
 				break;
 			case 'button':
-				$this->form .= $this->html_builders->create_button($this->cur_name, $this->cur_id, $value, $attr) . PHP_EOL;
+				$this->form .= $this->html_builders->create_button($this->cur_name, $this->cur_id, $value, $attr);
 				break;
 			case 'textarea':
-				$this->form .= $this->html_builders->create_textarea($this->cur_name, $this->cur_id, $value, $attr) . PHP_EOL;
+				$this->form .= $this->html_builders->create_textarea($this->cur_name, $this->cur_id, $value, $attr);
 				break;
 			case 'select':
-				$this->form .= $this->html_builders->create_select($this->cur_name, $this->cur_id, $value, $attr) . PHP_EOL;
+				$this->form .= $this->html_builders->create_select($this->cur_name, $this->cur_id, $value, $attr);
 				break;
 			//case 'file':		$this->form .= $this->html_builders->create_upload($this->cur_name, $this->cur_id, $value, $attr).PHP_EOL; break;
 			case 'file':
-				$this->form .= $this->html_builders->create_input($this->cur_name, $this->cur_id, $value, $attr + ['type' => 'file']) . PHP_EOL;
+				$this->form .= $this->html_builders->create_input($this->cur_name, $this->cur_id, $value, $attr + ['type' => 'file']);
 				break;
 			case 'day':
-				$this->form .= $this->html_builders->create_day_picker($this->cur_name, $this->cur_id, $value, $attr) . PHP_EOL;
+				$this->form .= $this->html_builders->create_day_picker($this->cur_name, $this->cur_id, $value, $attr);
 				break;
 			case 'time':
-				$this->form .= $this->html_builders->create_time_picker($this->cur_name, $this->cur_id, $value, $attr) . PHP_EOL;
+				$this->form .= $this->html_builders->create_time_picker($this->cur_name, $this->cur_id, $value, $attr);
 				break;
 			case 'tags':
-				$this->form .= $this->html_builders->create_tags($this->cur_name, $this->cur_id, $value, $attr) . PHP_EOL;
+				$this->form .= $this->html_builders->create_tags($this->cur_name, $this->cur_id, $value, $attr);
 				break;
 		}
 		if (isset($attr['placeholder']) && $attr['placeholder'] != '' && $this->is_floating == true) {
 			$this->label($attr['placeholder']);
 		}
-		$this->form .= $after_element . '<!-- end_element -->' . PHP_EOL;
+		$this->form .= $after_element;
 		return $this;
 	}
 
 	public function add_hidden($ary) {
 		if ($this->row_open == true)
 			$this->end_row();
-		$this->form .= '<div class="clearfix">' . PHP_EOL;
+		$this->form .= '<div class="clearfix">';
 		foreach ($ary as $name => $val) {
-			$this->form .= '<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $val . '">' . PHP_EOL;
+			$this->form .= '<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $val . '">';
 		}
-		$this->form .= '</div>' . PHP_EOL;
+		$this->form .= '</div>';
 		return $this;
 	}
 
@@ -242,16 +242,15 @@ class Form {
 		//<input type="hidden" name="token" value="' . $token . '" id="' . $this->form_id . '-token">
 		$Hash = new Hash();
 		$nemo = $Hash->form($this->form_id);
-		$this->form .= '<div id="' . $results_id . '"></div>
-		<input type="hidden" name="form_id" value="' . $this->form_id . '" id="form-id-' . $this->form_id . '">
-		<input type="hidden" name="nemo" value="' . $nemo . '" id="nemo-form-' . $this->form_id . '">
-		<div class="' . $div_classes . '">
-			' . $b4_btn
+		$this->form .= '<div id="' . $results_id . '"></div>'
+			. '<input type="hidden" name="form_id" value="' . $this->form_id . '" id="form-id-' . $this->form_id . '">'
+			. '<input type="hidden" name="nemo" value="' . $nemo . '" id="nemo-form-' . $this->form_id . '">'
+			. '<div class="' . $div_classes . '">'
+			. $b4_btn
 			. $this->html_builders->create_button('', $this->form_id . '-btn',
 				$btn_txt,
 				['type' => 'submit', 'class' => $btn_class]
-			) . $after_btn . '
-		</div>';
+			) . $after_btn . '</div>';
 		return $dont_close == false ? $this->close() : $this;
 	}
 
@@ -313,8 +312,8 @@ class Form {
 	}
 
 	public function close($close_form = true) {
-		$completed = $this->form . '</form>' . PHP_EOL;
-		return $close_form == true ? $this->form . '</form>' . PHP_EOL : $this->form;
+		$completed = $this->form . '</form>';
+		return $close_form == true ? $this->form . '</form>' : $this->form;
 	}
 
 	private function rollover_classes($cols, $add = '') {
