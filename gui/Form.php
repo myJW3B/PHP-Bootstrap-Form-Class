@@ -102,11 +102,8 @@ class Form {
 		$add_class = $row_class != '' ? ' ' . $row_class : '';
 		$add_class .= isset($this->opts['row_classes']) ? ' ' . $this->opts['row_classes'] : '';
 		$class = $add_class == '' ? '' : ' class="' . $add_class . '"';
-<<<<<<< HEAD
 		$this->form .= '<div' . $class . '><!-- new_row -->';
-=======
 		$this->form .= '<div' . $class . '>';
->>>>>>> b3b24043b5a0b3f9d223a33931a141b7c2a777b6
 		$this->row_open = true;
 		return $this;
 	}
@@ -147,11 +144,9 @@ class Form {
 	}
 
 	public function end_group($end = 'group') {
-<<<<<<< HEAD
+
 		$this->form .= '</div><!-- end_' . $end . ' -->';
-=======
 		$this->form .= '</div>';
->>>>>>> b3b24043b5a0b3f9d223a33931a141b7c2a777b6
 		$this->row_open = false;
 		return $this;
 	}
@@ -185,11 +180,8 @@ class Form {
 		//if($cols > 0){
 		//	$this->form .= '<div class="col-sm-'.$cols.'"><!-- element -->'.$b4_element.PHP_EOL;
 		//}
-<<<<<<< HEAD
 		$this->form .= '<!-- element -->' . $b4_element;
-=======
 		$this->form .= $b4_element;
->>>>>>> b3b24043b5a0b3f9d223a33931a141b7c2a777b6
 		switch ($type) {
 			case 'input':
 				$this->form .= $this->html_builders->create_input($this->cur_name, $this->cur_id, $value, $attr);
@@ -220,11 +212,8 @@ class Form {
 		if (isset($attr['placeholder']) && $attr['placeholder'] != '' && $this->is_floating == true) {
 			$this->label($attr['placeholder']);
 		}
-<<<<<<< HEAD
 		$this->form .= $after_element . '<!-- end_element -->';
-=======
 		$this->form .= $after_element;
->>>>>>> b3b24043b5a0b3f9d223a33931a141b7c2a777b6
 		return $this;
 	}
 
