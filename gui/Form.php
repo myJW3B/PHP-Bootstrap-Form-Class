@@ -102,7 +102,6 @@ class Form {
 		$add_class = $row_class != '' ? ' ' . $row_class : '';
 		$add_class .= isset($this->opts['row_classes']) ? ' ' . $this->opts['row_classes'] : '';
 		$class = $add_class == '' ? '' : ' class="' . $add_class . '"';
-		$this->form .= '<div' . $class . '><!-- new_row -->';
 		$this->form .= '<div' . $class . '>';
 		$this->row_open = true;
 		return $this;
@@ -144,8 +143,6 @@ class Form {
 	}
 
 	public function end_group($end = 'group') {
-
-		$this->form .= '</div><!-- end_' . $end . ' -->';
 		$this->form .= '</div>';
 		$this->row_open = false;
 		return $this;
@@ -180,7 +177,6 @@ class Form {
 		//if($cols > 0){
 		//	$this->form .= '<div class="col-sm-'.$cols.'"><!-- element -->'.$b4_element.PHP_EOL;
 		//}
-		$this->form .= '<!-- element -->' . $b4_element;
 		$this->form .= $b4_element;
 		switch ($type) {
 			case 'input':
@@ -212,7 +208,6 @@ class Form {
 		if (isset($attr['placeholder']) && $attr['placeholder'] != '' && $this->is_floating == true) {
 			$this->label($attr['placeholder']);
 		}
-		$this->form .= $after_element . '<!-- end_element -->';
 		$this->form .= $after_element;
 		return $this;
 	}
