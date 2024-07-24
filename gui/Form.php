@@ -34,7 +34,7 @@ class Form {
 	public function __construct($opts = []) { //id, $url='/ajax.php', $method='post', $attr=array('class' => 'form-horizontal jquery-form')){
 		$def_opts = [
 			'id'            => '',
-			'url'           => '/index.php',
+			'url'           => '/ajax',
 			'method'        => 'post',
 			'form_classes'  => 'mf-forms',
 			'input_classes' => 'form-control',
